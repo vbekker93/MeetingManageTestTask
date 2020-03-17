@@ -1,5 +1,6 @@
 ﻿using Newtonsoft.Json;
 using System;
+using System.Configuration;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Threading.Tasks;
@@ -25,11 +26,6 @@ namespace MeetingManageWebPortal.Helpers
         public const string BaseMediaType = "application/json";
 
         /// <summary>
-        /// Хост по умолчанию
-        /// </summary>
-        private const string BaseUrl = "https://localhost:44370";
-
-        /// <summary>
         /// Метод вызова Web-Api функций
         /// Получает данные для моделей
         /// </summary>
@@ -41,6 +37,7 @@ namespace MeetingManageWebPortal.Helpers
         public static async Task<T> ExecuteWebApiRequest<T>(string apiUri, HttpMethod httpMethod, StringContent content = null)
         {
             T responceObject = default(T);
+            string BaseUrl = ConfigurationManager.AppSettings["ServiceHost"];
 
             using (HttpClient client = new HttpClient())
             {
